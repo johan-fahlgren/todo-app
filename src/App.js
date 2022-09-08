@@ -57,6 +57,12 @@ function App() {
     }, 0);
   }
 
+  function toggleTodoCompleteAtIndex(index) {
+    const temporaryTodos = [...todos];
+    temporaryTodos[index].isCompleted = !temporaryTodos[index].isCompleted;
+    setTodos(temporaryTodos);
+  }
+
   return (
     <div className="App">
       <header className="header">
@@ -65,8 +71,13 @@ function App() {
       <form className="todo-list">
         <ul>
           {todos.map((todo, i) => (
-            <div className="todo">
-              <div className="checkbox" />
+            <div className={`todo ${todo.isCompleted && "todo-is-completed"}`}>
+              <div
+                className={"checkbox"}
+                onClick={() => toggleTodoCompleteAtIndex(i)}
+              >
+                {todo.isCompleted && <span>&#x2714;</span>}
+              </div>
               <input
                 type="text"
                 value={todo.content}
